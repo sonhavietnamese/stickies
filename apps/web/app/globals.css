@@ -1,0 +1,58 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+.gradient {
+    /* Fallback background, for folks who wish to reduce motion */
+    background: linear-gradient(
+            170deg,
+            hsl(0deg, 96%, 55%),
+            hsl(25deg, 100%, 50%)
+    );
+}
+@media (prefers-reduced-motion: no-preference) {
+    .gradient {
+        --magic-rainbow-color-0: hsl(0deg, 96%, 55%);
+        --magic-rainbow-color-1: hsl(25deg, 100%, 50%);
+        --magic-rainbow-color-2: hsl(40deg, 100%, 50%);
+        background: linear-gradient(
+                170deg,
+                var(--magic-rainbow-color-0),
+                var(--magic-rainbow-color-1),
+                var(--magic-rainbow-color-2)
+        );
+        transition:
+                --magic-rainbow-color-0 1000ms linear,
+                --magic-rainbow-color-1 1000ms linear,
+                --magic-rainbow-color-2 1000ms linear;
+    }
+}
