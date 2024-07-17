@@ -38,3 +38,4 @@ yarn-error.log*
 *.pem
 
 apps/service-rmbg/.venv
+apps/service-remove-background/.venv
