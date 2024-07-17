@@ -33,7 +33,7 @@ export default function Page() {
 
 		if (!data?.imageBase64) return
 
-		const image = await loadImage(`data:image/jpeg;base64,${data.imageBase64}`)
+		const image = (await loadImage(`data:image/jpeg;base64,${data.imageBase64}`)) as HTMLImageElement
 		setImage(image)
 
 		const mask = createMask(image, 20).toDataURL()

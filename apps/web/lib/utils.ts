@@ -1,15 +1,19 @@
-import { type Canvas, type Image, createCanvas } from 'canvas'
-
-export function createMask(img: Image | HTMLImageElement, thickness = 1, samples = 40): Canvas | HTMLCanvasElement {
+const browserCreateCanvas = (width: number, height: number): HTMLCanvasElement => {
+	const canvas = document.createElement('canvas')
+	canvas.width = width
+	canvas.height = height
+	return canvas
+}
+export function createMask(img: HTMLImageElement, thickness = 1, samples = 40): HTMLCanvasElement {
 	const x = thickness + 1
 	const y = thickness + 1
 
-	const canvas = createCanvas(img.width + x * 2, img.height + y * 2)
-	const ctx = canvas.getContext('2d')
+	const canvas = browserCreateCanvas(img.width + x * 2, img.height + y * 2)
+	const ctx = canvas.getContext('2d') as CanvasRenderingContext2D
 
 	for (let angle = 0; angle < 360; angle += 360 / samples) {
 		ctx.drawImage(
-			img as Image,
+			img,
 			thickness * Math.sin((Math.PI * 2 * angle) / 360) + x,
 			thickness * Math.cos((Math.PI * 2 * angle) / 360) + y,
 		)
@@ -20,7 +24,7 @@ export function createMask(img: Image | HTMLImageElement, thickness = 1, samples
 	ctx.fillRect(0, 0, canvas.width, canvas.height)
 
 	ctx.globalCompositeOperation = 'source-over'
-	ctx.drawImage(img as Image, x, y)
+	ctx.drawImage(img, x, y)
 
 	return canvas
 }
@@ -39,7 +43,6 @@ export function fileToBase64(file: File): Promise<string> {
 export async function loadImage(base64Image: string): Promise<HTMLImageElement> {
 	return new Promise<HTMLImageElement>((resolve, reject) => {
 		const img = new Image()
-		img.crossOrigin = 'anonymous'
 		img.onload = () => {
 			try {
 				resolve(img)

@@ -14,12 +14,12 @@ export default async function Home() {
 		})
 
 		if (!existUser) {
-			const newUser = await prisma.users.create({
-				data: {
-					id: userId,
-					name: user.lastName,
-				},
-			})
+			// const newUser = await prisma.users.create({
+			// 	data: {
+			// 		id: userId,
+			// 		name: user.lastName,
+			// 	},
+			// })
 		}
 	}
 
