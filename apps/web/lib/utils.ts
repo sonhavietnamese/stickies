@@ -69,7 +69,7 @@ export async function getRemoveBackgroundOutput(params: RemoveBackgroundOutputPa
 	let retries = 0
 
 	while (retries < maxRetries) {
-		const outputResponse = await fetch('http://45.76.54.67:8288/v0/gql', {
+		const outputResponse = await fetch('https://stickies.marsempires.xyz/v0/gql', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
