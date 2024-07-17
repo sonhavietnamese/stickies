@@ -1,5 +1,5 @@
-import { Inngest, InngestMiddleware } from 'inngest'
 import { PrismaClient } from '@prisma/client'
+import { Inngest, InngestMiddleware } from 'inngest'
 
 // make Prisma available in the Inngest functions
 const prismaMiddleware = new InngestMiddleware({
@@ -26,6 +26,6 @@ const prismaMiddleware = new InngestMiddleware({
 
 // Create a client to send and receive events
 export const inngest = new Inngest({
-	id: 'next-pxci-starter',
-	middleware: [prismaMiddleware],
+	id: 'service-remove-background',
+	baseUrl: 'http://45.76.54.67:8288',
 })

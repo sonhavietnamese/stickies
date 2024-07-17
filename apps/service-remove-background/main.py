@@ -16,6 +16,13 @@ inngest_client = inngest.Inngest(
 MODEL_NAME = "u2net"
 session = new_session(MODEL_NAME)
 
+
+app = FastAPI()
+
+@app.get("/")
+def read_root():
+    return {"Hello": "World"}
+
 @inngest_client.create_function(
    fn_id="remove-background",
    trigger=inngest.TriggerEvent(event="service/remove-background"),
@@ -40,6 +47,5 @@ async def remove_background(ctx: inngest.Context, step: inngest.Step) -> str:
     output_removed.save(buffered, format="PNG")
     return {"base64_image": base64.b64encode(buffered.getvalue()).decode()}
 
-app = FastAPI()
 
 inngest.fast_api.serve(app, inngest_client, [remove_background])
