@@ -1,14 +1,5 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
-
-  // Enable if using driver adapters
-  // previewFeatures = ["driverAdapters"]
 }
 
 datasource db {
@@ -17,13 +8,49 @@ datasource db {
   shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
-model messages {
-  text   String
-  author String
+model users {
+  id       String     @id @default(uuid())
+  name     String
+  stickers stickers[]
+  level    Int        @default(1)
+  stories  stories[]
 
-  // xata fields
   xata_updatedat DateTime @default(now()) @db.Timestamptz(6)
-  xata_id        String   @unique(map: "_pgroll_users_xata_id_key") @default(dbgenerated("('rec_'::text || (xata_private.xid())::text)"))
+  xata_id        String   @unique @default(dbgenerated("('rec_'::text || (xata_private.xid())::text)"))
+  xata_version   Int      @default(0)
+  xata_createdat DateTime @default(now()) @db.Timestamptz(6)
+}
+
+model stickers {
+  id        String  @id @default(uuid())
+  image_url String
+  user_id   String
+  x         Int
+  y         Int
+  outline   String
+  user      users   @relation(fields: [user_id], references: [id])
+  story_id  String
+  story     stories @relation(fields: [story_id], references: [id])
+
+  xata_updatedat DateTime @default(now()) @db.Timestamptz(6)
+  xata_id        String   @unique @default(dbgenerated("('rec_'::text || (xata_private.xid())::text)"))
+  xata_version   Int      @default(0)
+  xata_createdat DateTime @default(now()) @db.Timestamptz(6)
+}
+
+model stories {
+  id                 String     @id @default(uuid())
+  title              String
+  content            String
+  user_id            String
+  user               users      @relation(fields: [user_id], references: [id])
+  level              Int        @default(1)
+  number_of_stickers Int        @default(1)
+  is_finished        Boolean    @default(false)
+  stickers           stickers[]
+
+  xata_updatedat DateTime @default(now()) @db.Timestamptz(6)
+  xata_id        String   @unique @default(dbgenerated("('rec_'::text || (xata_private.xid())::text)"))
   xata_version   Int      @default(0)
   xata_createdat DateTime @default(now()) @db.Timestamptz(6)
 }

@@ -56,3 +56,29 @@ body {
                 --magic-rainbow-color-2 1000ms linear;
     }
 }
+
+.c-b {
+    padding: 0;
+    margin: 0;
+    background-color:  #4285f4;
+    background-image: linear-gradient(
+            -45deg,
+            #d2e3fc 0% 10%,
+            transparent 10% 50%,
+            #d2e3fc 50% 60%,
+            transparent 60% 100%
+    );
+
+    background-size: 100px 100px;
+    animation: slide 3s linear infinite;
+}
+
+@keyframes slide {
+    from {
+        background-position-x: -100px;
+    }
+
+    to {
+        background-position-x: 100px;
+    }
+}
