@@ -27,5 +27,5 @@ const prismaMiddleware = new InngestMiddleware({
 // Create a client to send and receive events
 export const inngest = new Inngest({
 	id: 'service-remove-background',
-	baseUrl: 'http://45.76.54.67:8288',
+	baseUrl: 'https://stickies.marsempires.xyz/',
 })
